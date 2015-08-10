@@ -1,0 +1,19 @@
+<resources>
+
+    <string name="action_salir">Salir</string>
+    <string name="action_settings">Configuración</string>
+
+    <string name="app_name">Ejemplos 2</string>
+
+    <string name="button_autos">Autos</string>
+
+    <string name="button_proyecto008">Proyecto 008</string>
+    <string name="button_proyecto009">Proyecto 009</string>
+
+    <string name="label_correo">jcjimenez29@misena.edu.co</string>
+
+    <string name="label_sena">Servicio Nacional de Apredizaje, SENA.</string>
+    <string name="label_si">Si.</string>
+    <string name="label_titulacion">Especialización Tecnológica en Desarrollo de Aplicaciones para Móviles.</string>
+
+</resources>
