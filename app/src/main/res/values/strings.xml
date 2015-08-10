@@ -1,5 +1,9 @@
 <resources>
 
+    <string name="action_buscar">Buscar</string>
+    <string name="action_crear">Crear</string>
+    <string name="action_editar">Editar</string>
+    <string name="action_eliminar">Eliminar</string>
     <string name="action_salir">Salir</string>
     <string name="action_settings">Configuración</string>
 
