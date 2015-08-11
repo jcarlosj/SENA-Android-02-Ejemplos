@@ -9,8 +9,9 @@
 
     <string name="app_name">Ejemplos 2</string>
 
+    <string name="button_acercade">Acerca de</string>
     <string name="button_autos">Autos</string>
-
+    <string name="button_finalizar">Finalizar</string>
     <string name="button_proyecto008">Proyecto 008</string>
     <string name="button_proyecto009">Proyecto 009</string>
 

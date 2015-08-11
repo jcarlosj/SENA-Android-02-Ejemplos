@@ -32,7 +32,7 @@ public class Proyecto009Activity extends AppCompatActivity {
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super .onCreate( savedInstanceState );
-        setContentView( R .layout .activity_proyecto009 );
+        setContentView( R.layout .activity_proyecto009 );
 
         //-> Busca para acceder a cada campo del "Activity" haciendo un TypeCast según corresponda.
         cCedula = ( EditText ) findViewById( R .id .et_Cedula );
@@ -145,7 +145,7 @@ public class Proyecto009Activity extends AppCompatActivity {
 
     private void eliminar( View v ) {
 
-        int cantidadRegistros = 0;
+        int cantidadRegistros;
         String mensaje;
 
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper( this, "administracion", null, 1 );
@@ -172,7 +172,7 @@ public class Proyecto009Activity extends AppCompatActivity {
 
     private void editar( View v ) {
 
-        int cantidadRegistros = 0;
+        int cantidadRegistros;
         String mensaje;
 
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper( this, "administracion", null, 1 );

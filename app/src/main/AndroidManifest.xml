@@ -22,6 +22,9 @@
         <activity
             android:name=".Proyecto009Activity"
             android:label="CRUD SQLite" />
+        <activity
+            android:name=".AcercaDeActivity"
+            android:label="Acerca de..." />
     </application>
 
 </manifest>

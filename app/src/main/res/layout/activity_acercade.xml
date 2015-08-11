@@ -8,9 +8,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_Autor" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_acercade"
-        android:id="@+id/btn_AcercaDe" />
+        android:text="@string/button_finalizar"
+        android:id="@+id/btn_Finalizar" />
 </LinearLayout>
