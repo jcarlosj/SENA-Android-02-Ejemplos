@@ -1,9 +1,14 @@
 package co.jce.sena.ejemplos02;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 /**
@@ -11,10 +16,30 @@ import android.widget.Toast;
  */
 public class Proyecto009Activity extends AppCompatActivity {
 
+    //-> Atributos (Campos)
+    private EditText cCedula,
+                     cNombres,
+                     cColegio,
+                     cNroMesa;
+
+    //-> Atributos (Variables)
+    private String vCedula,
+                   vNombres,
+                   vColegio,
+                   vNroMesa,
+                   vNroCedulaBuscar;
+
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super .onCreate( savedInstanceState );
         setContentView( R .layout .activity_proyecto009 );
+
+        //-> Busca para acceder a cada campo del "Activity" haciendo un TypeCast según corresponda.
+        cCedula = ( EditText ) findViewById( R .id .et_Cedula );
+        cNombres = ( EditText ) findViewById( R .id .et_NombresApellidos );
+        cColegio = ( EditText ) findViewById( R .id .et_NombreColegio );
+        cNroMesa = ( EditText ) findViewById( R .id .et_NumeroMesa );
+
     }
 
     @Override
@@ -33,22 +58,148 @@ public class Proyecto009Activity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_crear) {
-            Toast .makeText( Proyecto009Activity.this, "Presionó Crear", Toast .LENGTH_SHORT ) .show();
+            insertar( null );
             return true;
         }
         if (id == R.id.action_editar) {
-            Toast .makeText( Proyecto009Activity.this, "Presionó Editar", Toast .LENGTH_SHORT ) .show();
+            editar( null );
             return true;
         }
         if (id == R.id.action_eliminar) {
-            Toast .makeText( Proyecto009Activity.this, "Presionó Eliminar", Toast .LENGTH_SHORT ) .show();
+            eliminar( null );
             return true;
         }
         if (id == R.id.action_buscar) {
-            Toast .makeText( Proyecto009Activity.this, "Presionó Buscar", Toast .LENGTH_SHORT ) .show();
+            consultar( null );
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void capturarCampos() {
+
+        vCedula = cCedula .getText() .toString();
+        vNombres = cNombres .getText() .toString();
+        vColegio = cColegio .getText() .toString();
+        vNroMesa = cNroMesa .getText() .toString();
+
+    }
+
+    private void prepararRegistro( ContentValues registro, String metodo ) {
+
+        if( metodo .equals( "insertar" ) ) {
+            registro .put( "cedula", vCedula );
+        }
+        registro .put( "nombre", vNombres ) ;
+        registro .put( "colegio", vColegio );
+        registro .put( "nromesa", vNroMesa );
+
+    }
+
+    private void limpiarCampos() {
+        cCedula .setText("");
+        cNombres .setText("");
+        cColegio .setText("");
+        cNroMesa .setText("");
+    }
+
+    private void insertar( View v ) {
+
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper( this, "administracion", null, 1 );
+        SQLiteDatabase db  = admin .getWritableDatabase();
+
+            capturarCampos();
+        ContentValues register = new ContentValues();
+
+            prepararRegistro( register, "insertar" );
+        db .insert( "volantes", null, register );
+        db .close();
+        limpiarCampos();
+        Toast .makeText( this, "Registro exitoso", Toast .LENGTH_SHORT ) .show();
+
+    }
+
+    private void consultar( View v ) {
+
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper( this, "administracion", null, 1 );
+        SQLiteDatabase db  = admin .getWritableDatabase();
+
+        //-> Capturamos el valor (Número de la cédula) que usaremos para buscar si existe un registro.
+        vNroCedulaBuscar = cCedula .getText() .toString();
+
+        Cursor row = db .rawQuery( "select nombre, colegio, nromesa from volantes where cedula=" + vNroCedulaBuscar, null );
+        if( row .moveToFirst() ) {
+            cNombres .setText( row .getString( 0 ) );
+            cColegio .setText( row .getString( 1 ) );
+            cNroMesa .setText( row .getString( 2 ) );
+            Toast .makeText( this, "El registro encontrado.", Toast .LENGTH_SHORT ) .show();
+        }
+        else {
+            Toast .makeText( this, "El registro solicitado no existe.", Toast .LENGTH_SHORT ) .show();
+        }
+        db .close();
+        vNroCedulaBuscar = "";
+
+    }
+
+    private void eliminar( View v ) {
+
+        int cantidadRegistros = 0;
+        String mensaje;
+
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper( this, "administracion", null, 1 );
+        SQLiteDatabase db  = admin .getWritableDatabase();
+
+        //-> Capturamos el valor (Número de la cédula) que usaremos para buscar si existe un registro.
+        vNroCedulaBuscar = cCedula .getText() .toString();
+
+        cantidadRegistros = db .delete( "volantes", "cedula = " + vNroCedulaBuscar, null );
+        db .close();
+        limpiarCampos();
+
+        if( cantidadRegistros == 1 ) {
+            mensaje = "Registro eliminado.";
+        }
+        else {
+            mensaje = "El registro solicitado no existe.";
+        }
+        Toast.makeText( this, mensaje, Toast.LENGTH_SHORT).show();
+
+        vNroCedulaBuscar = "";
+
+    }
+
+    private void editar( View v ) {
+
+        int cantidadRegistros = 0;
+        String mensaje;
+
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper( this, "administracion", null, 1 );
+        SQLiteDatabase db  = admin .getWritableDatabase();
+
+            capturarCampos();
+        ContentValues register = new ContentValues();
+
+            prepararRegistro( register, "editar" );
+
+        //-> Capturamos el valor (Número de la cédula) que usaremos para buscar si existe un registro.
+        vNroCedulaBuscar = cCedula .getText() .toString();
+
+        cantidadRegistros = db .update( "volantes", register, "cedula=" + vNroCedulaBuscar, null );
+        db .close();
+        limpiarCampos();
+
+        if( cantidadRegistros == 1 ) {
+            mensaje = "Registro modificado.";
+        }
+        else {
+            mensaje = "El registro solicitado no existe.";
+        }
+        Toast.makeText( this, mensaje, Toast.LENGTH_SHORT).show();
+
+        vNroCedulaBuscar = "";
+
+    }
+
 }

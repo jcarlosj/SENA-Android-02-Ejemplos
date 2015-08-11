@@ -12,7 +12,8 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/et_Cedula" />
+        android:id="@+id/et_Cedula"
+        android:inputType="number" />
 
     <TextView
         android:layout_width="match_parent"
@@ -45,5 +46,6 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/et_NumeroMesa" />
+        android:id="@+id/et_NumeroMesa"
+        android:inputType="number" />
 </LinearLayout>
