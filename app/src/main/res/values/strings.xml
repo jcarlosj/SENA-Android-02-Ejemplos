@@ -16,8 +16,12 @@
 
     <string name="label_correo">jcjimenez29@misena.edu.co</string>
 
+    <string name="label_cedula">Número de Cédula</string>
+    <string name="label_nombrecolegio">Nombre del colegio</string>
+    <string name="label_nombresapellidos">Nombres y Apellidos</string>
+    <string name="label_numeromesa">Número de mesa</string>
+
     <string name="label_sena">Servicio Nacional de Apredizaje, SENA.</string>
-    <string name="label_si">Si.</string>
     <string name="label_titulacion">Especialización Tecnológica en Desarrollo de Aplicaciones para Móviles.</string>
 
 </resources>
